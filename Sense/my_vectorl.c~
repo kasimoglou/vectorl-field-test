@@ -1,7 +1,0 @@
-#include "my_vectorl.h"
-#include <stdio.h>
-
-int readValue(int counter) {
-	printf("%u\n", counter)
-        return counter; 
-}
