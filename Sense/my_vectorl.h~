@@ -1,0 +1,14 @@
+#ifndef MY_VECTORL_H_INCLUDED
+#define MY_VECTORL_H_INCLUDED
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+  int readValue(int counter);
+  void initializeOutput();
+#ifdef __cplusplus
+}
+#endif
+  
+#endif // MY_VECTORL_H_INCLUDED

@@ -1,0 +1,6 @@
+COMPONENT=SenseAppC
+PFLAGS += -I./my_vectorl.c
+include $(MAKERULES)
+
+
+

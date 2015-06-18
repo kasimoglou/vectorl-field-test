@@ -1,0 +1,5 @@
+COMPONENT=SenseAppC
+include $(MAKERULES)
+
+
+
