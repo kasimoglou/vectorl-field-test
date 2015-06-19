@@ -2,12 +2,22 @@ generic module MyConfigurableSensorC(char mode[])
 {
   provides interface Read<uint16_t> as Main;
   uses interface Read<uint16_t> as Real;
+  uses interface SimulationInterface;
+  //provides interface Init;
 }
+
 implementation
-{ 
+{
+	uint8_t counter = 0;
+	 
   	task void readVectorlValue() {
-    	signal Main.readDone(SUCCESS, 20);
+  		signal Main.readDone(SUCCESS, 20);
   	}
+  	
+  	void initializeSimulation() {
+		dbg("Output", "Initializing simulation...\n");
+		call SimulationInterface.initializeSimulation();
+	}
 
   	// When a component wants to read a measurement from us
 	// we check whether user has selected "real" or "test" mode.
@@ -18,21 +28,29 @@ implementation
 	
 	// If user has selected "test" mode, it means that we have to
     // start a vectorl simulation
-  	command error_t Main.read() {
-    	if (mode == "test") {
+  	command error_t Main.read(){
+  		if (mode == "test") {
+    		if (counter == 0) {
+    			initializeSimulation();
+				counter ++;
+			}
+			
     		dbg("Output", "Simulation reading\n");
-			post readVectorlValue();
+			//post readVectorlValue();
     		return SUCCESS;
 		} else if (mode == "real") {
 			dbg("Output", "Reading from real sensor\n");
-        	call Real.read();	
+			call Real.read();
+        	return SUCCESS;	
+		} else {
+			return 1;	
 		}
+		
   	}
 
   	event void Real.readDone(error_t result, uint16_t data) 
   	{
     	signal Main.readDone(SUCCESS, data);
   	}
-
-  
+  	
 }
