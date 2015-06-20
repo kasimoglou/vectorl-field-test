@@ -2,11 +2,14 @@
 #define PRIORITYQUEUE_H
 
 #define MAX 1000
+#include<stdio.h>
+
+typedef   void (*Action)();
 
 struct event_node {
-	void (*event_handler)(int, ...);
 	uint32_t priority;
 	uint8_t order;
+	Action event_handler;
 };
 
 struct priority_queue {
@@ -19,10 +22,14 @@ void initialize(struct priority_queue *pq) {
 	pq->front = pq->rear = -1;
 }
 
-void add(struct priority_queue *pq, struct event_node event_) {
+void add(struct priority_queue *pq, Action event_handler, uint32_t priority, uint8_t order) {
+	struct event_node event_;
 	struct event_node tmp;
 	uint8_t i, j;
 	
+	event_.event_handler = event_handler;
+	event_.priority = priority;
+	event_.order = order;
 	
 	if (pq->rear >= MAX -1 ) {
 		return;
@@ -31,7 +38,7 @@ void add(struct priority_queue *pq, struct event_node event_) {
 	pq->rear++;
 	pq->nodes[pq->rear] = event_;
 	
-	if (pq->front == -1) {
+	if (pq->front == (uint8_t)-1) {
 		pq->front = 0;
 	}
 	
@@ -59,8 +66,10 @@ struct event_node delete (struct priority_queue *pq) {
 	struct event_node t;
 	
 	if (pq->front == -1) {
+		printf("Error! Queue is empry");
 		return t;
 	}
+	
 	
 	t = pq->nodes[pq->front];
 	pq->nodes[pq->front] = t;
