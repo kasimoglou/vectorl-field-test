@@ -3,44 +3,42 @@
 
 module Rabbits{
 	provides interface SimulationInterface;
+	uses interface LocalTime<TMilli> as Timer;
+	provides interface Read<uint16_t> as SensorReading;
 }
 implementation{
 	struct rabbits rabbit;
-	struct priority_queue event_queue;
-	uint8_t event_counter = 0;
 	
 	void on_7rabbits_10generation(uint8_t n) {
  	 	rabbit.rabbits.tmp = rabbit.rabbits.thisgen;
  	 	rabbit.rabbits.thisgen += rabbit.rabbits.lastgen;
  	 	rabbit.rabbits.lastgen = rabbit.rabbits.tmp;
  	 	
- 	 	dbg("Output", "Rabbits now are: %u\n", rabbit.rabbits.thisgen);
+ 	 	dbg("Output", "ENVIRONMENT SIMULATION: Rabbits now are: %u\n", rabbit.rabbits.thisgen);
  	 	
- 	 	if (n < generation) {
- 			on_7rabbits_10generation(n+1);
- 		}
+ 	 	//if (n < generation) {
+ 			add(&event_queue, on_7rabbits_10generation, call Timer.get() + 1, event_counter++);
+ 		//}
 	}
  	 
  	void on_3sys_4Init() {
- 	 	dbg("Output", "Rabbits now are: %u\n", rabbit.rabbits.thisgen);
- 	    on_7rabbits_10generation(2);
+ 	 	add(&event_queue, on_7rabbits_10generation, call Timer.get() + 0, event_counter++);
 	}
 	
 
 	command void SimulationInterface.initializeSimulation(){
 		// TODO Auto-generated method stub
-		struct event_node node;
-		
-		dbg("Output", "Generation %u\n", generation);
 		rabbit.rabbits.thisgen = 1;
-		initialize(&event_queue);
-		
-		add(&event_queue, on_3sys_4Init, 0, event_counter);
-		
-		dbg("Output", "Event queue size is now %u\n", event_queue.rear);
-		node = delete(&event_queue);
-		dbg("Output", "Event queue size is now %u\n", event_queue.rear);
-		node.event_handler();
-		
+		on_3sys_4Init();
+	}
+
+	task void getValue() {
+		signal SensorReading.readDone(SUCCESS, rabbit.rabbits.thisgen);
+	}
+
+	command error_t SensorReading.read(){
+		// TODO Auto-generated method stub
+		post getValue();
+		return SUCCESS;
 	}
 }

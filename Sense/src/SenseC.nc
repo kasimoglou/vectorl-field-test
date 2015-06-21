@@ -21,19 +21,19 @@ implementation
   #define SAMPLING_FREQUENCY 100
   
   event void Boot.booted() {
-    	dbg("Output", "Application Booted\n");
+    	dbg("Output", "Application Booted in Sensor\n");
     	call Timer.startPeriodic(SAMPLING_FREQUENCY);
   }
 
   event void Timer.fired() 
   {
-    	call Read.read();
+   		call Read.read();
   }
 
   event void Read.readDone(error_t result, uint16_t data) 
   {
     	if (result == SUCCESS){
-      		//dbg("Output", "Value received: %u \n", data);
+      		dbg("Output", "SENSOR SIMULATION: Sensor reads %u rabbits.\n", data);
     	}
   }
 }

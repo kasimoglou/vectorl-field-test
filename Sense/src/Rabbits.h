@@ -8,9 +8,9 @@
 		} sys;
 		
 		struct _model_rabits {
-			uint8_t lastgen;
-			uint8_t thisgen;
-			uint8_t tmp;
+			uint16_t lastgen;
+			uint16_t thisgen;
+			uint16_t tmp;
 			
 		} rabbits;
 	};

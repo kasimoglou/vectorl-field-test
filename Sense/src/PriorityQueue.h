@@ -4,6 +4,8 @@
 #define MAX 1000
 #include<stdio.h>
 
+uint8_t event_counter = 0;
+
 typedef   void (*Action)();
 
 struct event_node {
@@ -18,15 +20,18 @@ struct priority_queue {
 	uint8_t rear;
 };
 
+struct priority_queue event_queue;
+
 void initialize(struct priority_queue *pq) {
 	pq->front = pq->rear = -1;
 }
 
 void add(struct priority_queue *pq, Action event_handler, uint32_t priority, uint8_t order) {
+	
 	struct event_node event_;
 	struct event_node tmp;
 	uint8_t i, j;
-	
+
 	event_.event_handler = event_handler;
 	event_.priority = priority;
 	event_.order = order;
@@ -62,7 +67,7 @@ void add(struct priority_queue *pq, Action event_handler, uint32_t priority, uin
 	
 }
 
-struct event_node delete (struct priority_queue *pq) {
+struct event_node delete(struct priority_queue *pq) {
 	struct event_node t;
 	
 	if (pq->front == -1) {
@@ -80,6 +85,10 @@ struct event_node delete (struct priority_queue *pq) {
 	}
 	
 	return t;
+}
+
+bool isEmpty(struct priority_queue *pq) {
+	return (pq->front == (uint8_t)-1);
 }
 
 

@@ -2,23 +2,15 @@ generic module MyConfigurableSensorC(char mode[])
 {
   provides interface Read<uint16_t> as Main;
   uses interface Read<uint16_t> as Real;
-  uses interface SimulationInterface;
-  //provides interface Init;
+  uses interface Read<uint16_t> as Simulation;
+  uses interface SimulationInterface as RuntimeEngine;
+  provides interface Init;
 }
 
 implementation
 {
 	uint8_t counter = 0;
 	 
-  	task void readVectorlValue() {
-  		signal Main.readDone(SUCCESS, 20);
-  	}
-  	
-  	void initializeSimulation() {
-		dbg("Output", "Initializing simulation...\n");
-		call SimulationInterface.initializeSimulation();
-	}
-
   	// When a component wants to read a measurement from us
 	// we check whether user has selected "real" or "test" mode.
 	
@@ -30,16 +22,10 @@ implementation
     // start a vectorl simulation
   	command error_t Main.read(){
   		if (mode == "test") {
-    		if (counter == 0) {
-    			initializeSimulation();
-				counter ++;
-			}
-			
-    		dbg("Output", "Simulation reading\n");
-			//post readVectorlValue();
+			call Simulation.read();
     		return SUCCESS;
+		
 		} else if (mode == "real") {
-			dbg("Output", "Reading from real sensor\n");
 			call Real.read();
         	return SUCCESS;	
 		} else {
@@ -53,4 +39,21 @@ implementation
     	signal Main.readDone(SUCCESS, data);
   	}
   	
+  	event void Simulation.readDone(error_t result, uint16_t data){
+		// TODO Auto-generated method stub
+		signal Main.readDone(SUCCESS, data);
+	}
+
+	command error_t Init.init(){
+		// TODO Auto-generated method stub
+		if (mode == "test") {
+			dbg("Output", "Simulation mode. Starting\n");
+			call RuntimeEngine.initializeSimulation();
+				
+		} else {
+			dbg("Output", "Real mode. Starting\n");
+		}
+		return SUCCESS;
+	}
+
 }
