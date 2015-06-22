@@ -33,7 +33,7 @@ implementation
   event void Read.readDone(error_t result, uint16_t data) 
   {
     	if (result == SUCCESS){
-      		dbg("Output", "SENSOR SIMULATION: Sensor reads %u rabbits.\n", data);
+      		dbg("Output", "SENSOR SIMULATION: Time is %u and sensor reads %u rabbits.\n", call Timer.getNow() ,data);
     	}
   }
 }

@@ -3,9 +3,11 @@
 
 #define MAX 1000
 #include<stdio.h>
+#include<stdarg.h>
 
 uint8_t event_counter = 0;
 
+// Pointer to a function with unspecified number of arguments
 typedef   void (*Action)();
 
 struct event_node {
@@ -30,7 +32,8 @@ void add(struct priority_queue *pq, Action event_handler, uint32_t priority, uin
 	
 	struct event_node event_;
 	struct event_node tmp;
-	uint8_t i, j;
+	int i, j;
+	
 
 	event_.event_handler = event_handler;
 	event_.priority = priority;

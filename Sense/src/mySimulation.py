@@ -6,5 +6,5 @@ t.addChannel("Output", sys.stdout);
 
 t.getNode(1).bootAtTime(100001);
 
-for i in range(0, 100):
+for i in range(0, 1000):
     t.runNextEvent();

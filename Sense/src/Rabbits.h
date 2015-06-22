@@ -13,6 +13,10 @@
 			uint16_t tmp;
 			
 		} rabbits;
+		
+		struct on_7rabbits_10generation_args {
+			uint8_t n;
+		} on_7rabbits_10generation_args;
 	};
 	
 #endif /* RABBITS_H */

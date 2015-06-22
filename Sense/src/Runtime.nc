@@ -7,8 +7,10 @@ module Runtime{
 }
 implementation{
 
-	task void start() {
-		call EventTimer.startPeriodic(50);
+	task void schedule_wake_up() {
+		if (!isEmpty(&event_queue)) {
+			call EventTimer.startOneShot(event_queue.nodes[0].priority - call EventTimer.getNow());
+		}
 	}
 	
 	command void RuntimeInitializer.initializeSimulation(){
@@ -16,19 +18,17 @@ implementation{
 		dbg("Output", "Runtime engine initialized.\n");
 		initialize(&event_queue);
 		call SimulationInitializer.initializeSimulation();
-		post start();
+		post schedule_wake_up();
 	}
 
 	event void EventTimer.fired(){
 		// TODO Auto-generated method stub
 		struct event_node event_to_execute;
-		if (!isEmpty(&event_queue)) {
-			while (event_queue.nodes[0].priority <= call EventTimer.getNow()) {
-				event_to_execute = delete(&event_queue);
-				event_to_execute.event_handler();
-			}
-		} else {
-			dbg("Output", "No events\n");
+		while (!isEmpty(&event_queue) && event_queue.nodes[0].priority <= call EventTimer.getNow()) {
+			event_to_execute = delete(&event_queue);
+			event_to_execute.event_handler();
 		}
+		
+		post schedule_wake_up();
 	}
 }

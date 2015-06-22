@@ -797,7 +797,7 @@ extern void *malloc(size_t __size) __attribute((__leaf__)) __attribute((__nothro
 #line 483
 extern void free(void *__ptr) __attribute((__leaf__)) __attribute((__nothrow__)) ;
 #line 742
-typedef int (*__compar_fn_t)(const void *arg_0x2b6732efacf8, const void *arg_0x2b6732ef9020);
+typedef int (*__compar_fn_t)(const void *arg_0x2b2e17564cf8, const void *arg_0x2b2e17563020);
 #line 780
 __extension__ 
 #line 797
@@ -1206,8 +1206,8 @@ typedef struct hashtable hashtable_t;
 #line 78
 struct hashtable *
 create_hashtable(unsigned int minsize, 
-unsigned int (*hashfunction)(void *arg_0x2b67331bc8e8), 
-int (*key_eq_fn)(void *arg_0x2b67331bb0c8, void *arg_0x2b67331bb368));
+unsigned int (*hashfunction)(void *arg_0x2b2e178268e8), 
+int (*key_eq_fn)(void *arg_0x2b2e178250c8, void *arg_0x2b2e17825368));
 #line 103
 #line 102
 int 
@@ -1243,7 +1243,7 @@ typedef struct sim_log_channel {
 } sim_log_channel_t;
 
 enum __nesc_unnamed4272 {
-  SIM_LOG_OUTPUT_COUNT = 182U
+  SIM_LOG_OUTPUT_COUNT = 181U
 };
 
 sim_log_output_t outputs[SIM_LOG_OUTPUT_COUNT];
@@ -1820,7 +1820,7 @@ struct tm;
 
 struct tm;
 # 46 "/opt/tinyos-2.1.2/tos/lib/tossim/randomlib.h"
-static inline void RandomInitialise(int arg_0x2b67333cc610, int arg_0x2b67333cc878);
+static inline void RandomInitialise(int arg_0x2b2e17a36610, int arg_0x2b2e17a36878);
 static inline double RandomUniform(void );
 # 51 "/opt/tinyos-2.1.2/tos/lib/tossim/sim_noise.c"
 int numCase1 = 0;
@@ -3589,8 +3589,9 @@ typedef union __nesc_unnamed4324 {
     uint8_t rsvd : 2;
   } bits;
 } Atm128_ETIFR_t;
-# 7 "PriorityQueue.h"
+# 8 "PriorityQueue.h"
 uint8_t event_counter = 0;
+
 
 typedef void (*Action)();
 
@@ -3613,11 +3614,13 @@ static inline void initialize(struct priority_queue *pq);
 
 
 static void add(struct priority_queue *pq, Action event_handler, uint32_t priority, uint8_t order);
-#line 70
+#line 73
 static inline struct event_node delete(struct priority_queue *pq);
-#line 90
+#line 93
 static inline bool isEmpty(struct priority_queue *pq);
-# 5 "Rabbits.h"
+# 3 "Rabbits.h"
+const uint8_t generation = 10;
+
 struct rabbits {
   struct _model_sys {
   } 
@@ -3629,6 +3632,10 @@ struct rabbits {
     uint16_t tmp;
   } 
   rabbits;
+
+  struct on_7rabbits_10generation_args {
+    uint8_t n;
+  } on_7rabbits_10generation_args;
 };
 typedef uint16_t SenseC$Read$val_t;
 typedef TMilli SenseC$Timer$precision_tag;
@@ -3681,11 +3688,11 @@ static error_t MeasureClockC$Init$init(void );
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static error_t SimSchedulerBasicP$TaskBasic$postTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2b67334cd020);
+uint8_t arg_0x2b2e17b37020);
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static void SimSchedulerBasicP$TaskBasic$default$runTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2b67334cd020);
+uint8_t arg_0x2b2e17b37020);
 # 57 "/opt/tinyos-2.1.2/tos/interfaces/Scheduler.nc"
 static void SimSchedulerBasicP$Scheduler$init(void );
 
@@ -3715,7 +3722,7 @@ static long long int SimMoteP$SimMote$getStartTime(void );
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static void TossimActiveMessageC$AMSend$default$sendDone(
 # 47 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b67337ce220, 
+am_id_t arg_0x2b2e17e38220, 
 # 103 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 message_t * msg, 
 
@@ -3734,7 +3741,7 @@ message_t *
 
 TossimActiveMessageC$Snoop$default$receive(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b67337fb020, 
+am_id_t arg_0x2b2e17e65020, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -3773,7 +3780,7 @@ message_t *
 
 TossimActiveMessageC$Receive$default$receive(
 # 48 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b67337fc340, 
+am_id_t arg_0x2b2e17e66340, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -3891,16 +3898,29 @@ static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$fire
 #line 136
 static uint32_t /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$getNow(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2b6733bd2c28);
+uint8_t arg_0x2b2e1823cc28);
 # 83 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2b6733bd2c28);
+uint8_t arg_0x2b2e1823cc28);
 # 64 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startPeriodic(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2b6733bd2c28, 
+uint8_t arg_0x2b2e1823cc28, 
 # 64 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
+uint32_t dt);
+
+
+
+
+
+
+
+
+static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startOneShot(
+# 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
+uint8_t arg_0x2b2e1823cc28, 
+# 73 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 uint32_t dt);
 # 61 "/opt/tinyos-2.1.2/tos/lib/timer/LocalTime.nc"
 static uint32_t /*HilTimerMilliC.CounterToLocalTimeC*/CounterToLocalTimeC$0$LocalTime$get(void );
@@ -3919,7 +3939,7 @@ static void Runtime$RuntimeInitializer$initializeSimulation(void );
 # 83 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 static void Runtime$EventTimer$fired(void );
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
-static void Runtime$start$runTask(void );
+static void Runtime$schedule_wake_up$runTask(void );
 #line 75
 static void /*SenseAppC.RealSensor.SineSensorC*/SineSensorC$0$readTask$runTask(void );
 # 55 "/opt/tinyos-2.1.2/tos/interfaces/Read.nc"
@@ -3932,7 +3952,9 @@ static void Rabbits$getValue$runTask(void );
 static void Rabbits$SimulationInterface$initializeSimulation(void );
 # 55 "/opt/tinyos-2.1.2/tos/interfaces/Read.nc"
 static error_t SenseC$Read$read(void );
-# 64 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
+# 136 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
+static uint32_t SenseC$Timer$getNow(void );
+#line 64
 static void SenseC$Timer$startPeriodic(uint32_t dt);
 # 23 "SenseC.nc"
 static inline void SenseC$Boot$booted(void );
@@ -3945,7 +3967,7 @@ static inline void SenseC$Timer$fired(void );
 
 
 
-static inline void SenseC$Read$readDone(error_t result, uint16_t data);
+static void SenseC$Read$readDone(error_t result, uint16_t data);
 # 62 "/opt/tinyos-2.1.2/tos/interfaces/Init.nc"
 static error_t PlatformP$MoteInit$init(void );
 #line 62
@@ -3990,7 +4012,7 @@ int sim_main_start_mote(void )   ;
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 static void SimSchedulerBasicP$TaskBasic$runTask(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-uint8_t arg_0x2b67334cd020);
+uint8_t arg_0x2b2e17b37020);
 
 
 
@@ -4158,7 +4180,7 @@ static am_addr_t TossimActiveMessageC$amAddress(void );
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 static void TossimActiveMessageC$AMSend$sendDone(
 # 47 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b67337ce220, 
+am_id_t arg_0x2b2e17e38220, 
 # 103 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
 message_t * msg, 
 
@@ -4177,7 +4199,7 @@ message_t *
 
 TossimActiveMessageC$Snoop$receive(
 # 49 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b67337fb020, 
+am_id_t arg_0x2b2e17e65020, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -4196,7 +4218,7 @@ message_t *
 
 TossimActiveMessageC$Receive$receive(
 # 48 "/opt/tinyos-2.1.2/tos/lib/tossim/TossimActiveMessageC.nc"
-am_id_t arg_0x2b67337fc340, 
+am_id_t arg_0x2b2e17e66340, 
 # 71 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -4690,7 +4712,7 @@ static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$stop
 
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(
 # 48 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-uint8_t arg_0x2b6733bd2c28);
+uint8_t arg_0x2b2e1823cc28);
 #line 71
 enum /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$__nesc_unnamed4332 {
 #line 71
@@ -4747,6 +4769,11 @@ static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$startTimer(uin
 
 
 static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startPeriodic(uint8_t num, uint32_t dt);
+
+
+
+
+static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startOneShot(uint8_t num, uint32_t dt);
 #line 189
 static inline uint32_t /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$getNow(uint8_t num);
 #line 204
@@ -4792,19 +4819,21 @@ static inline error_t /*SenseAppC.Sensor.MySensor*/MyConfigurableSensorC$0$Init$
 static void Runtime$SimulationInitializer$initializeSimulation(void );
 # 136 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 static uint32_t Runtime$EventTimer$getNow(void );
-#line 64
-static void Runtime$EventTimer$startPeriodic(uint32_t dt);
+#line 73
+static void Runtime$EventTimer$startOneShot(uint32_t dt);
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
-static error_t Runtime$start$postTask(void );
+static error_t Runtime$schedule_wake_up$postTask(void );
 # 10 "Runtime.nc"
 enum Runtime$__nesc_unnamed4335 {
 #line 10
-  Runtime$start = 5U
+  Runtime$schedule_wake_up = 5U
 };
 #line 10
-typedef int Runtime$__nesc_sillytask_start[Runtime$start];
+typedef int Runtime$__nesc_sillytask_schedule_wake_up[Runtime$schedule_wake_up];
 #line 10
-static inline void Runtime$start$runTask(void );
+static inline void Runtime$schedule_wake_up$runTask(void );
+
+
 
 
 
@@ -4852,18 +4881,18 @@ static void Rabbits$SensorReading$readDone(error_t result, Rabbits$SensorReading
 static error_t Rabbits$getValue$postTask(void );
 # 61 "/opt/tinyos-2.1.2/tos/lib/timer/LocalTime.nc"
 static uint32_t Rabbits$Timer$get(void );
-# 35 "Rabbits.nc"
+# 36 "Rabbits.nc"
 enum Rabbits$__nesc_unnamed4337 {
-#line 35
+#line 36
   Rabbits$getValue = 7U
 };
-#line 35
+#line 36
 typedef int Rabbits$__nesc_sillytask_getValue[Rabbits$getValue];
 #line 10
 struct rabbits Rabbits$rabbit[1000];
 
-static void Rabbits$on_7rabbits_10generation(uint8_t n);
-#line 24
+static void Rabbits$on_7rabbits_10generation(void );
+#line 25
 static inline void Rabbits$on_3sys_4Init(void );
 
 
@@ -5265,13 +5294,13 @@ static inline message_t *TossimActiveMessageC$Snoop$default$receive(am_id_t id, 
 }
 
 # 78 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
-inline static message_t * TossimActiveMessageC$Snoop$receive(am_id_t arg_0x2b67337fb020, message_t * msg, void * payload, uint8_t len){
+inline static message_t * TossimActiveMessageC$Snoop$receive(am_id_t arg_0x2b2e17e65020, message_t * msg, void * payload, uint8_t len){
 #line 78
   nx_struct message_t *__nesc_result;
 #line 78
 
 #line 78
-    __nesc_result = TossimActiveMessageC$Snoop$default$receive(arg_0x2b67337fb020, msg, payload, len);
+    __nesc_result = TossimActiveMessageC$Snoop$default$receive(arg_0x2b2e17e65020, msg, payload, len);
 #line 78
 
 #line 78
@@ -5287,13 +5316,13 @@ static inline message_t *TossimActiveMessageC$Receive$default$receive(am_id_t id
 }
 
 # 78 "/opt/tinyos-2.1.2/tos/interfaces/Receive.nc"
-inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2b67337fc340, message_t * msg, void * payload, uint8_t len){
+inline static message_t * TossimActiveMessageC$Receive$receive(am_id_t arg_0x2b2e17e66340, message_t * msg, void * payload, uint8_t len){
 #line 78
   nx_struct message_t *__nesc_result;
 #line 78
 
 #line 78
-    __nesc_result = TossimActiveMessageC$Receive$default$receive(arg_0x2b67337fc340, msg, payload, len);
+    __nesc_result = TossimActiveMessageC$Receive$default$receive(arg_0x2b2e17e66340, msg, payload, len);
 #line 78
 
 #line 78
@@ -5634,9 +5663,9 @@ static inline void TossimActiveMessageC$AMSend$default$sendDone(uint8_t id, mess
 }
 
 # 110 "/opt/tinyos-2.1.2/tos/interfaces/AMSend.nc"
-inline static void TossimActiveMessageC$AMSend$sendDone(am_id_t arg_0x2b67337ce220, message_t * msg, error_t error){
+inline static void TossimActiveMessageC$AMSend$sendDone(am_id_t arg_0x2b2e17e38220, message_t * msg, error_t error){
 #line 110
-    TossimActiveMessageC$AMSend$default$sendDone(arg_0x2b67337ce220, msg, error);
+    TossimActiveMessageC$AMSend$default$sendDone(arg_0x2b2e17e38220, msg, error);
 #line 110
 }
 #line 110
@@ -5892,31 +5921,32 @@ static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$updateF
     }
 }
 
-#line 154
-static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startPeriodic(uint8_t num, uint32_t dt)
+#line 159
+static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startOneShot(uint8_t num, uint32_t dt)
 {
-  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$startTimer(num, /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$getNow(), dt, FALSE);
+  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$startTimer(num, /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$getNow(), dt, TRUE);
 }
 
-# 64 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
-inline static void Runtime$EventTimer$startPeriodic(uint32_t dt){
-#line 64
-  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startPeriodic(1U, dt);
-#line 64
+# 73 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
+inline static void Runtime$EventTimer$startOneShot(uint32_t dt){
+#line 73
+  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startOneShot(1U, dt);
+#line 73
 }
-#line 64
+#line 73
+# 93 "PriorityQueue.h"
+static inline bool isEmpty(struct priority_queue *pq)
+#line 93
+{
+  return pq->front == (uint8_t )-1;
+}
+
 # 10 "Runtime.nc"
-static inline void Runtime$start$runTask(void )
+static inline void Runtime$schedule_wake_up$runTask(void )
 #line 10
 {
-  Runtime$EventTimer$startPeriodic(50);
-}
-
-# 33 "SenseC.nc"
-static inline void SenseC$Read$readDone(error_t result, uint16_t data)
-{
-  if (result == SUCCESS) {
-      sim_log_debug(47U, "Output", "SENSOR SIMULATION: Sensor reads %u rabbits.\n", data);
+  if (!isEmpty(&event_queue)) {
+      Runtime$EventTimer$startOneShot(event_queue.nodes[0].priority - Runtime$EventTimer$getNow());
     }
 }
 
@@ -5969,9 +5999,9 @@ inline static void Rabbits$SensorReading$readDone(error_t result, Rabbits$Sensor
 #line 63
 }
 #line 63
-# 35 "Rabbits.nc"
+# 36 "Rabbits.nc"
 static inline void Rabbits$getValue$runTask(void )
-#line 35
+#line 36
 {
   Rabbits$SensorReading$readDone(SUCCESS, Rabbits$rabbit[sim_node()].rabbits.thisgen);
 }
@@ -5982,9 +6012,9 @@ static inline void SimSchedulerBasicP$TaskBasic$default$runTask(uint8_t id)
 }
 
 # 75 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
-inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b67334cd020){
+inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b2e17b37020){
 #line 75
-  switch (arg_0x2b67334cd020) {
+  switch (arg_0x2b2e17b37020) {
 #line 75
     case TossimPacketModelC$startDoneTask:
 #line 75
@@ -6016,9 +6046,9 @@ inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b67334cd0
 #line 75
       break;
 #line 75
-    case Runtime$start:
+    case Runtime$schedule_wake_up:
 #line 75
-      Runtime$start$runTask();
+      Runtime$schedule_wake_up$runTask();
 #line 75
       break;
 #line 75
@@ -6036,7 +6066,7 @@ inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b67334cd0
 #line 75
     default:
 #line 75
-      SimSchedulerBasicP$TaskBasic$default$runTask(arg_0x2b67334cd020);
+      SimSchedulerBasicP$TaskBasic$default$runTask(arg_0x2b2e17b37020);
 #line 75
       break;
 #line 75
@@ -6044,7 +6074,66 @@ inline static void SimSchedulerBasicP$TaskBasic$runTask(uint8_t arg_0x2b67334cd0
 #line 75
 }
 #line 75
-#line 67
+# 189 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
+static inline uint32_t /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$getNow(uint8_t num)
+{
+  return /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$getNow();
+}
+
+# 136 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
+inline static uint32_t SenseC$Timer$getNow(void ){
+#line 136
+  unsigned int __nesc_result;
+#line 136
+
+#line 136
+  __nesc_result = /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$getNow(0U);
+#line 136
+
+#line 136
+  return __nesc_result;
+#line 136
+}
+#line 136
+# 61 "/opt/tinyos-2.1.2/tos/lib/tossim/SimMoteP.nc"
+static inline long long int SimMoteP$SimMote$getStartTime(void )
+#line 61
+{
+  return SimMoteP$startTime[sim_node()];
+}
+
+# 127 "/opt/tinyos-2.1.2/tos/chips/atm128/timer/sim/HplAtm128Timer0AsyncP.nc"
+static inline sim_time_t HplAtm128Timer0AsyncP$notify_clockTicksPerSec(void )
+#line 127
+{
+  return ATM128_TIMER0_TICKSPPS;
+}
+
+#line 154
+static inline sim_time_t HplAtm128Timer0AsyncP$sim_to_clock(sim_time_t t)
+#line 154
+{
+  t *= HplAtm128Timer0AsyncP$notify_clockTicksPerSec();
+  t /= sim_ticks_per_sec();
+  return t;
+}
+
+# 53 "/opt/tinyos-2.1.2/tos/chips/atm128/timer/HplAtm128TimerCtrl8.nc"
+inline static Atm128_TIFR_t /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$TimerCtrl$getInterruptFlag(void ){
+#line 53
+  union __nesc_unnamed4310 __nesc_result;
+#line 53
+
+#line 53
+  __nesc_result = HplAtm128Timer0AsyncP$Timer0Ctrl$getInterruptFlag();
+#line 53
+
+#line 53
+  return __nesc_result;
+#line 53
+}
+#line 53
+# 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 inline static error_t /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$updateFromTimer$postTask(void ){
 #line 67
   unsigned char __nesc_result;
@@ -6095,44 +6184,6 @@ static inline int SimSchedulerBasicP$sim_config_task_latency(void )
   return 100;
 }
 
-# 61 "/opt/tinyos-2.1.2/tos/lib/tossim/SimMoteP.nc"
-static inline long long int SimMoteP$SimMote$getStartTime(void )
-#line 61
-{
-  return SimMoteP$startTime[sim_node()];
-}
-
-# 127 "/opt/tinyos-2.1.2/tos/chips/atm128/timer/sim/HplAtm128Timer0AsyncP.nc"
-static inline sim_time_t HplAtm128Timer0AsyncP$notify_clockTicksPerSec(void )
-#line 127
-{
-  return ATM128_TIMER0_TICKSPPS;
-}
-
-#line 154
-static inline sim_time_t HplAtm128Timer0AsyncP$sim_to_clock(sim_time_t t)
-#line 154
-{
-  t *= HplAtm128Timer0AsyncP$notify_clockTicksPerSec();
-  t /= sim_ticks_per_sec();
-  return t;
-}
-
-# 53 "/opt/tinyos-2.1.2/tos/chips/atm128/timer/HplAtm128TimerCtrl8.nc"
-inline static Atm128_TIFR_t /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/Atm128AlarmAsyncP$0$TimerCtrl$getInterruptFlag(void ){
-#line 53
-  union __nesc_unnamed4310 __nesc_result;
-#line 53
-
-#line 53
-  __nesc_result = HplAtm128Timer0AsyncP$Timer0Ctrl$getInterruptFlag();
-#line 53
-
-#line 53
-  return __nesc_result;
-#line 53
-}
-#line 53
 # 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
 inline static error_t /*SenseAppC.RealSensor.SineSensorC*/SineSensorC$0$readTask$postTask(void ){
 #line 67
@@ -6186,9 +6237,9 @@ inline static error_t Rabbits$getValue$postTask(void ){
 #line 67
 }
 #line 67
-# 39 "Rabbits.nc"
+# 40 "Rabbits.nc"
 static inline error_t Rabbits$SensorReading$read(void )
-#line 39
+#line 40
 {
 
   Rabbits$getValue$postTask();
@@ -6253,9 +6304,24 @@ static inline void SenseC$Timer$fired(void )
   SenseC$Read$read();
 }
 
-# 70 "PriorityQueue.h"
+# 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
+inline static error_t Runtime$schedule_wake_up$postTask(void ){
+#line 67
+  unsigned char __nesc_result;
+#line 67
+
+#line 67
+  __nesc_result = SimSchedulerBasicP$TaskBasic$postTask(Runtime$schedule_wake_up);
+#line 67
+
+#line 67
+  return __nesc_result;
+#line 67
+}
+#line 67
+# 73 "PriorityQueue.h"
 static inline struct event_node delete(struct priority_queue *pq)
-#line 70
+#line 73
 {
   struct event_node t;
 
@@ -6271,7 +6337,7 @@ static inline struct event_node delete(struct priority_queue *pq)
       pq->front = pq->rear = -1;
     }
   else 
-#line 83
+#line 86
     {
       pq->front++;
     }
@@ -6279,53 +6345,20 @@ static inline struct event_node delete(struct priority_queue *pq)
   return t;
 }
 
-# 189 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-static inline uint32_t /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$getNow(uint8_t num)
-{
-  return /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$getNow();
-}
-
-# 136 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
-inline static uint32_t Runtime$EventTimer$getNow(void ){
-#line 136
-  unsigned int __nesc_result;
-#line 136
-
-#line 136
-  __nesc_result = /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$getNow(1U);
-#line 136
-
-#line 136
-  return __nesc_result;
-#line 136
-}
-#line 136
-# 90 "PriorityQueue.h"
-static inline bool isEmpty(struct priority_queue *pq)
-#line 90
-{
-  return pq->front == (uint8_t )-1;
-}
-
-# 22 "Runtime.nc"
+# 24 "Runtime.nc"
 static inline void Runtime$EventTimer$fired(void )
-#line 22
+#line 24
 {
 
   struct event_node event_to_execute;
 
-#line 25
-  if (!isEmpty(&event_queue)) {
-      while (event_queue.nodes[0].priority <= Runtime$EventTimer$getNow()) {
-          event_to_execute = delete(&event_queue);
-          event_to_execute.event_handler();
-        }
+#line 27
+  while (!isEmpty(&event_queue) && event_queue.nodes[0].priority <= Runtime$EventTimer$getNow()) {
+      event_to_execute = delete(&event_queue);
+      event_to_execute.event_handler();
     }
-  else 
-#line 30
-    {
-      sim_log_debug(180U, "Output", "No events\n");
-    }
+
+  Runtime$schedule_wake_up$postTask();
 }
 
 # 204 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
@@ -6334,9 +6367,9 @@ static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$d
 }
 
 # 83 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
-inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(uint8_t arg_0x2b6733bd2c28){
+inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$fired(uint8_t arg_0x2b2e1823cc28){
 #line 83
-  switch (arg_0x2b6733bd2c28) {
+  switch (arg_0x2b2e1823cc28) {
 #line 83
     case 0U:
 #line 83
@@ -6352,7 +6385,7 @@ inline static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$f
 #line 83
     default:
 #line 83
-      /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(arg_0x2b6733bd2c28);
+      /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$default$fired(arg_0x2b2e1823cc28);
 #line 83
       break;
 #line 83
@@ -6932,21 +6965,6 @@ static inline error_t /*AlarmCounterMilliP.Atm128AlarmAsyncC.Atm128AlarmAsyncP*/
   return SUCCESS;
 }
 
-# 67 "/opt/tinyos-2.1.2/tos/interfaces/TaskBasic.nc"
-inline static error_t Runtime$start$postTask(void ){
-#line 67
-  unsigned char __nesc_result;
-#line 67
-
-#line 67
-  __nesc_result = SimSchedulerBasicP$TaskBasic$postTask(Runtime$start);
-#line 67
-
-#line 67
-  return __nesc_result;
-#line 67
-}
-#line 67
 # 64 "/opt/tinyos-2.1.2/tos/lib/timer/Counter.nc"
 inline static /*HilTimerMilliC.CounterToLocalTimeC*/CounterToLocalTimeC$0$Counter$size_type /*HilTimerMilliC.CounterToLocalTimeC*/CounterToLocalTimeC$0$Counter$get(void ){
 #line 64
@@ -6983,16 +7001,16 @@ inline static uint32_t Rabbits$Timer$get(void ){
 #line 61
 }
 #line 61
-# 24 "Rabbits.nc"
+# 25 "Rabbits.nc"
 static inline void Rabbits$on_3sys_4Init(void )
-#line 24
+#line 25
 {
+  Rabbits$rabbit[sim_node()].on_7rabbits_10generation_args.n++;
   add(&event_queue, Rabbits$on_7rabbits_10generation, Rabbits$Timer$get() + 0, event_counter++);
 }
 
-
 static inline void Rabbits$SimulationInterface$initializeSimulation(void )
-#line 29
+#line 30
 {
 
   Rabbits$rabbit[sim_node()].rabbits.thisgen = 1;
@@ -7006,22 +7024,22 @@ inline static void Runtime$SimulationInitializer$initializeSimulation(void ){
 #line 2
 }
 #line 2
-# 25 "PriorityQueue.h"
+# 27 "PriorityQueue.h"
 static inline void initialize(struct priority_queue *pq)
-#line 25
+#line 27
 {
   pq->front = pq->rear = -1;
 }
 
-# 14 "Runtime.nc"
+# 16 "Runtime.nc"
 static inline void Runtime$RuntimeInitializer$initializeSimulation(void )
-#line 14
+#line 16
 {
 
   sim_log_debug(179U, "Output", "Runtime engine initialized.\n");
   initialize(&event_queue);
   Runtime$SimulationInitializer$initializeSimulation();
-  Runtime$start$postTask();
+  Runtime$schedule_wake_up$postTask();
 }
 
 # 2 "SimulationInterface.nc"
@@ -7065,6 +7083,12 @@ inline static error_t SimMainP$SoftwareInit$init(void ){
 #line 62
 }
 #line 62
+# 154 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
+static inline void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$startPeriodic(uint8_t num, uint32_t dt)
+{
+  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$startTimer(num, /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$TimerFrom$getNow(), dt, FALSE);
+}
+
 # 64 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
 inline static void SenseC$Timer$startPeriodic(uint32_t dt){
 #line 64
@@ -8630,50 +8654,11 @@ static bool SimSchedulerBasicP$Scheduler$runNextTask(void )
   return TRUE;
 }
 
-# 144 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
-static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$startTimer(uint8_t num, uint32_t t0, uint32_t dt, bool isoneshot)
+# 33 "SenseC.nc"
+static void SenseC$Read$readDone(error_t result, uint16_t data)
 {
-  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer_t *timer = &/*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$m_timers[sim_node()][num];
-
-#line 147
-  timer->t0 = t0;
-  timer->dt = dt;
-  timer->isoneshot = isoneshot;
-  timer->isrunning = TRUE;
-  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$updateFromTimer$postTask();
-}
-
-# 205 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
-static error_t SimSchedulerBasicP$TaskBasic$postTask(uint8_t id)
-{
-  error_t result;
-
-#line 208
-  { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
-#line 208
-    {
-      result = SimSchedulerBasicP$pushTask(id) ? SUCCESS : EBUSY;
-    }
-#line 210
-    __nesc_atomic_end(__nesc_atomic); }
   if (result == SUCCESS) {
-      sim_log_debug(100U, "Scheduler", "Posting task %hhu.\n", id);
-      SimSchedulerBasicP$sim_scheduler_submit_event();
-    }
-  else {
-      sim_log_debug(101U, "Scheduler", "Posting task %hhu, but already posted.\n", id);
-    }
-  return result;
-}
-
-#line 77
-static void SimSchedulerBasicP$sim_scheduler_submit_event(void )
-#line 77
-{
-  if (SimSchedulerBasicP$sim_scheduler_event_pending[sim_node()] == FALSE) {
-      SimSchedulerBasicP$sim_scheduler_event[sim_node()].time = sim_time() + SimSchedulerBasicP$sim_config_task_latency();
-      sim_queue_insert(&SimSchedulerBasicP$sim_scheduler_event[sim_node()]);
-      SimSchedulerBasicP$sim_scheduler_event_pending[sim_node()] = TRUE;
+      sim_log_debug(47U, "Output", "SENSOR SIMULATION: Time is %u and sensor reads %u rabbits.\n", SenseC$Timer$getNow(), data);
     }
 }
 
@@ -8799,6 +8784,68 @@ static uint8_t HplAtm128Timer0AsyncP$Compare$get(void )
   return * (volatile uint8_t *)&atm128RegFile[sim_node()][0x31];
 }
 
+# 144 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
+static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$startTimer(uint8_t num, uint32_t t0, uint32_t dt, bool isoneshot)
+{
+  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer_t *timer = &/*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$m_timers[sim_node()][num];
+
+#line 147
+  timer->t0 = t0;
+  timer->dt = dt;
+  timer->isoneshot = isoneshot;
+  timer->isrunning = TRUE;
+  /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$updateFromTimer$postTask();
+}
+
+# 205 "/opt/tinyos-2.1.2/tos/lib/tossim/SimSchedulerBasicP.nc"
+static error_t SimSchedulerBasicP$TaskBasic$postTask(uint8_t id)
+{
+  error_t result;
+
+#line 208
+  { __nesc_atomic_t __nesc_atomic = __nesc_atomic_start();
+#line 208
+    {
+      result = SimSchedulerBasicP$pushTask(id) ? SUCCESS : EBUSY;
+    }
+#line 210
+    __nesc_atomic_end(__nesc_atomic); }
+  if (result == SUCCESS) {
+      sim_log_debug(100U, "Scheduler", "Posting task %hhu.\n", id);
+      SimSchedulerBasicP$sim_scheduler_submit_event();
+    }
+  else {
+      sim_log_debug(101U, "Scheduler", "Posting task %hhu, but already posted.\n", id);
+    }
+  return result;
+}
+
+#line 77
+static void SimSchedulerBasicP$sim_scheduler_submit_event(void )
+#line 77
+{
+  if (SimSchedulerBasicP$sim_scheduler_event_pending[sim_node()] == FALSE) {
+      SimSchedulerBasicP$sim_scheduler_event[sim_node()].time = sim_time() + SimSchedulerBasicP$sim_config_task_latency();
+      sim_queue_insert(&SimSchedulerBasicP$sim_scheduler_event[sim_node()]);
+      SimSchedulerBasicP$sim_scheduler_event_pending[sim_node()] = TRUE;
+    }
+}
+
+# 136 "/opt/tinyos-2.1.2/tos/lib/timer/Timer.nc"
+static uint32_t Runtime$EventTimer$getNow(void ){
+#line 136
+  unsigned int __nesc_result;
+#line 136
+
+#line 136
+  __nesc_result = /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$Timer$getNow(1U);
+#line 136
+
+#line 136
+  return __nesc_result;
+#line 136
+}
+#line 136
 # 73 "/opt/tinyos-2.1.2/tos/lib/timer/VirtualizeTimerC.nc"
 static void /*HilTimerMilliC.VirtualizeTimerC*/VirtualizeTimerC$0$fireTimers(uint32_t now)
 {
@@ -9062,16 +9109,17 @@ static void HplAtm128Timer0AsyncP$configure_compare(sim_event_t *evt)
   evt->time = compareTime;
 }
 
-# 29 "PriorityQueue.h"
+# 31 "PriorityQueue.h"
 static void add(struct priority_queue *pq, Action event_handler, uint32_t priority, uint8_t order)
-#line 29
+#line 31
 {
 
   struct event_node event_;
   struct event_node tmp;
-  uint8_t i;
-#line 33
-  uint8_t j;
+  int i;
+#line 35
+  int j;
+
 
   event_.event_handler = event_handler;
   event_.priority = priority;
@@ -9096,7 +9144,7 @@ static void add(struct priority_queue *pq, Action event_handler, uint32_t priori
               pq->nodes[j] = tmp;
             }
           else 
-#line 56
+#line 59
             {
               if (pq->nodes[i].priority == pq->nodes[j].priority) {
                   if (pq->nodes[i].order > pq->nodes[j].order) {
@@ -9111,17 +9159,19 @@ static void add(struct priority_queue *pq, Action event_handler, uint32_t priori
 }
 
 # 12 "Rabbits.nc"
-static void Rabbits$on_7rabbits_10generation(uint8_t n)
+static void Rabbits$on_7rabbits_10generation(void )
 #line 12
 {
   Rabbits$rabbit[sim_node()].rabbits.tmp = Rabbits$rabbit[sim_node()].rabbits.thisgen;
   Rabbits$rabbit[sim_node()].rabbits.thisgen += Rabbits$rabbit[sim_node()].rabbits.lastgen;
   Rabbits$rabbit[sim_node()].rabbits.lastgen = Rabbits$rabbit[sim_node()].rabbits.tmp;
 
-  sim_log_debug(181U, "Output", "ENVIRONMENT SIMULATION: Rabbits now are: %u\n", Rabbits$rabbit[sim_node()].rabbits.thisgen);
+  sim_log_debug(180U, "Output", "ENVIRONMENT SIMULATION: Time is %u and rabbits now are: %u\n", Rabbits$Timer$get(), Rabbits$rabbit[sim_node()].rabbits.thisgen);
 
-
-  add(&event_queue, Rabbits$on_7rabbits_10generation, Rabbits$Timer$get() + 1, event_counter++);
+  if (Rabbits$rabbit[sim_node()].on_7rabbits_10generation_args.n < generation) {
+      Rabbits$rabbit[sim_node()].on_7rabbits_10generation_args.n++;
+      add(&event_queue, Rabbits$on_7rabbits_10generation, Rabbits$Timer$get() + 1000, event_counter++);
+    }
 }
 
 # 90 "/opt/tinyos-2.1.2/tos/lib/tossim/SimMoteP.nc"

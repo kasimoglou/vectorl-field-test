@@ -9,22 +9,23 @@ module Rabbits{
 implementation{
 	struct rabbits rabbit;
 	
-	void on_7rabbits_10generation(uint8_t n) {
+	void on_7rabbits_10generation() {
  	 	rabbit.rabbits.tmp = rabbit.rabbits.thisgen;
  	 	rabbit.rabbits.thisgen += rabbit.rabbits.lastgen;
  	 	rabbit.rabbits.lastgen = rabbit.rabbits.tmp;
  	 	
- 	 	dbg("Output", "ENVIRONMENT SIMULATION: Rabbits now are: %u\n", rabbit.rabbits.thisgen);
- 	 	
- 	 	//if (n < generation) {
- 			add(&event_queue, on_7rabbits_10generation, call Timer.get() + 1, event_counter++);
- 		//}
+ 	 	dbg("Output", "ENVIRONMENT SIMULATION: Time is %u and rabbits now are: %u\n", call Timer.get(), rabbit.rabbits.thisgen);
+
+ 	 	if (rabbit.on_7rabbits_10generation_args.n < generation) {
+ 	 		rabbit.on_7rabbits_10generation_args.n++;
+ 	 		add(&event_queue, on_7rabbits_10generation, call Timer.get() + 1000, event_counter++);
+ 		}
 	}
  	 
  	void on_3sys_4Init() {
+ 		rabbit.on_7rabbits_10generation_args.n++;
  	 	add(&event_queue, on_7rabbits_10generation, call Timer.get() + 0, event_counter++);
 	}
-	
 
 	command void SimulationInterface.initializeSimulation(){
 		// TODO Auto-generated method stub
