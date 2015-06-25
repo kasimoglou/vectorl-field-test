@@ -67,7 +67,6 @@ void add(struct priority_queue *pq, Action event_handler, uint32_t priority, uin
 			}
 		}
 	}
-	
 }
 
 struct event_node delete(struct priority_queue *pq) {

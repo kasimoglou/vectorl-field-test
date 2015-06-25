@@ -32,8 +32,14 @@ implementation
 
   event void Read.readDone(error_t result, uint16_t data) 
   {
-    	if (result == SUCCESS){
-      		dbg("Output", "SENSOR SIMULATION: Time is %u and sensor reads %u rabbits.\n", call Timer.getNow() ,data);
+  		// Uncomment for rabbits example
+//    	if (result == SUCCESS){
+//      		dbg("Output", "SENSOR SIMULATION: Time is %u and sensor reads %u rabbits.\n", call Timer.getNow() ,data);
+//    	}
+		
+		// Parking example
+		if (result == SUCCESS){
+      		dbg("Output", "SENSOR SIMULATION: Time is %u and spot 0 sensor value is %u.\n", call Timer.getNow() ,data);
     	}
   }
 }

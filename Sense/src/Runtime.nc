@@ -1,5 +1,4 @@
 #include "PriorityQueue.h"
-
 module Runtime{
 	provides interface SimulationInterface as RuntimeInitializer;
 	uses interface SimulationInterface as SimulationInitializer;
@@ -9,7 +8,7 @@ implementation{
 
 	task void schedule_wake_up() {
 		if (!isEmpty(&event_queue)) {
-			call EventTimer.startOneShot(event_queue.nodes[0].priority - call EventTimer.getNow());
+			call EventTimer.startOneShot(event_queue.nodes[event_queue.front].priority - call EventTimer.getNow());
 		}
 	}
 	
@@ -24,7 +23,8 @@ implementation{
 	event void EventTimer.fired(){
 		// TODO Auto-generated method stub
 		struct event_node event_to_execute;
-		while (!isEmpty(&event_queue) && event_queue.nodes[0].priority <= call EventTimer.getNow()) {
+		
+		while (!isEmpty(&event_queue) && (event_queue.nodes[event_queue.front].priority <= call EventTimer.getNow())) {
 			event_to_execute = delete(&event_queue);
 			event_to_execute.event_handler();
 		}
